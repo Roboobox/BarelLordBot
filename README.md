@@ -1,0 +1,2 @@
+# BarelLordBot
+Small Discord bot
