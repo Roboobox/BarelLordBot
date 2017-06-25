@@ -26,5 +26,7 @@ async def on_message(message):
         await client.send_message(message.channel, '*Aleksejā...')
     elif "olafi" in message.content.lower():
         await client.send_message(message.channel, '*Alekseji...')
+    elif "olaf" in message.content.lower():
+        await client.send_message(message.channel, '*Aleksej...')
 
 client.run('Mjk3NDQ1Mjc5NTI1ODk2MTkz.DDBYZg.arP3Qh43pDTyDb5Jpsxh5ISjQWs')
