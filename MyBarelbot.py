@@ -7,12 +7,7 @@ import threading
 from threading import Timer
 
 from discord.ext import commands
-from discord.ext import ipc
 from discord import ChannelType
-from discord import Server
-from discord import server
-from discord import Embed
-from discord import embeds
 
    
 logging.basicConfig(level=logging.INFO)
