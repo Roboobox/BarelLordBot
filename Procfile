@@ -1,1 +1,1 @@
-worker: MyBarelbot.py
+worker: python MyBarelbot.py
