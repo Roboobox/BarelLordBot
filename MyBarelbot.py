@@ -164,27 +164,71 @@ def dj_startTime():
     global DJtimeReady
     DJtimeReady = hourlater.strftime("%d-%m-%Y %H:%M")
     print(DJtimeReady)
-    t = Timer(3600, enableLegacyDJ)
+    t = Timer(20, enableLegacyDJ)
     t.start()
 
     
 def enableLegacyDJ():
-    if (message.author.name == LegacyDJs[0] or message.author.name == LegacyDJs[1] or message.author.name == LegacyDJs[2]):
-        pass
     if(LegacyDJs[0] != ""):
         pass
 
     for i in range(0, 2):
         for user in client.get_all_members():
             if(LegacyDJs[i] == user.name):
-                client.send_message(user, "You have some DJing to do boi")
-
+                userToSend = user    
     global isLegacyDJReady
-    isLegacyDJReady = True;
+    isLegacyDJReady = True
     if(LegacyDJs[0] != ""):
         print(LegacyDJs[0])
 
-def checkTime():
-    return DJtimeReady
+@client.command(pass_context = True)
+async def checkTime(ctx):
+    if(ctx.message.author.name == LegacyDJs[0] or ctx.message.author == LegacyDJs[1] or ctx.message.author == LegacyDJs[2]):
+        if(isLegacyDJReady == True):
+            await client.send_message(ctx.message.author, "DJ_DIMA already awaits you.")
+
+        elif(DJtimeReady == None):
+            await client.send_message(ctx.message.author, "LegacyDJ power not started...")
+        else:
+            await client.send_message(ctx.message.author, "LegacyDJ power ready at - " + DJtimeReady)
+    else:
+        await client.send_message(ctx.message.author, "Only for LegacyDJs... :no_entry: ")
+    await client.delete_message(ctx.message)
+
+@client.command(pass_context = True)
+async def getLegacyDJs(ctx):
+    await client.send_message(ctx.message.channel, "**1. " + LegacyDJs[0] + "\n2. " + LegacyDJs[1] + "\n3. " + LegacyDJs[2] +"**")
+
+@client.command(pass_context = True)
+async def deleteLegacyDJ(ctx, member):
+    memberFound = False
+    authorizedToCommand = False;
+    for role in ctx.message.author.roles:
+        if(role.permissions.manage_server):
+            authorizedToCommand = True
+
+    for memberSelected in client.get_all_members():
+        if (member == memberSelected.name):
+            
+            memberFound = True;
+    if(authorizedToCommand == False):
+        await client.say(":no_entry: You do not have permission to use this command! :no_entry: ")
+    elif(member is None):
+        await client.say("Please enter LegacyDJs username!")
+    elif(memberFound == False):
+        await client.say("There is no such user in this server!")
+    else:
+        if(LegacyDJs[0] == member):
+            LegacyDJs[0] = ""
+            await client.say('|'+ member + '|' + " is no longer a LegacyDJ")
+        elif(LegacyDJs[1] == member):
+            LegacyDJs[1] = ""
+            await client.say('|'+ member + '|' + " is no longer a LegacyDJ")
+        elif(LegacyDJs[2] == member):
+            LegacyDJs[2] = ""
+            await client.say('|'+ member + '|' + " is no longer a LegacyDJ")
+        else:
+            await client.say("No such LegacyDJ found!")
+    
 
 client.run('Mjk3NDQ1Mjc5NTI1ODk2MTkz.DDBYZg.arP3Qh43pDTyDb5Jpsxh5ISjQWs')
