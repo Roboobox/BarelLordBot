@@ -2,6 +2,7 @@
 import discord;
 import logging
 import time
+import os
 from datetime import datetime, timedelta
 import threading
 from threading import Timer
@@ -14,8 +15,7 @@ logging.basicConfig(level=logging.INFO)
 DJtimeReady = None
 isLegacyDJReady = True
 hasLegacyDJPlayedMusic = False;
-
-
+areDJsLoaded = False;
 
 
 #await client.say(embed=embed)
@@ -31,6 +31,30 @@ LegacyDJs = [
     ]
 client = commands.Bot(description='BarelLord bot', command_prefix='!')
 
+@client.event
+async def on_ready():
+
+    loadDJs()
+
+def loadDJs():
+    try:
+      file = open("DJs.txt", "r")
+      if(os.path.getsize("DJs.txt")) > 0:
+          with open("DJs.txt", "r") as f:
+            content = f.readlines()
+            content = [x.strip() for x in content]
+            if((len(content) - 1) != 0):
+                for i in range(0, len(content)):
+                    LegacyDJs[i] = content[i]
+            else:
+                LegacyDJs[0] = content[0]
+            f.close()
+      else:
+          print("empty")
+      file.close()
+    except Exception as e:
+        print("Something went wrong while loading")
+        print(e)
 
 @client.event
 async def on_message(message):
@@ -103,7 +127,6 @@ async def helpMe(ctx):
     em.add_field(name="", value="", inline=False)
     em.add_field(name="Admin commands:", value="!addLegacyDJ discord_username  -  adds news LegacyDJ", inline=True)
     em.set_footer(text="Bot made by Roboobox")
-    print("HelpTest")
     await client.send_message(LegacyDJs[0], "Testing")
 
 @client.command(pass_context = True)
@@ -117,7 +140,7 @@ async def cc(ctx, champion : str):
 
 @client.command(pass_context = True)
 async def live(ctx, username : str):
-    await client.send_message(ctx.message.channel, "http://www.lolnexus.com/EUNE/search?name=" + username + "&region=EUNE")
+    await client.send_message(ctx.message.channel, "http://www.lolskill.net/game/EUNE/" + username)
 
 @client.command(pass_context = True)
 async def ggc(ctx, champion : str, line : str):
@@ -130,6 +153,7 @@ async def addLegacyDJ(ctx, * , member):
     for role in ctx.message.author.roles:
         if(role.permissions.manage_server):
             authorizedToCommand = True
+
 
     for memberSelected in client.get_all_members():
         if (member == memberSelected.name):
@@ -145,11 +169,14 @@ async def addLegacyDJ(ctx, * , member):
         await client.say('|'+ member + '|' + " is now a LegacyDJ")
         if(LegacyDJs[0] == ""):
             LegacyDJs[0] = member
+            save(member)
             print(LegacyDJs[1])
         elif(LegacyDJs[1] == ""):
             LegacyDJs[1] = member
+            save(member)
         elif(LegacyDJs[2] == ""):
             LegacyDJs[2] = member
+            save(member)
         else:
             await client.say("No free space for new LegacyDJ")
 
@@ -166,6 +193,10 @@ def dj_startTime():
     print(DJtimeReady)
     t = Timer(20, enableLegacyDJ)
     t.start()
+
+@client.event
+async def delete_message(message):
+    client.delete_message(message)
 
     
 def enableLegacyDJ():
@@ -199,6 +230,17 @@ async def checkTime(ctx):
 async def getLegacyDJs(ctx):
     await client.send_message(ctx.message.channel, "**1. " + LegacyDJs[0] + "\n2. " + LegacyDJs[1] + "\n3. " + LegacyDJs[2] +"**")
 
+
+def save(info : str):
+    try:
+      file = open("DJs.txt", "a")
+      file.write(info)
+      file.write("\n")
+      file.close()
+    except Exception:
+        print("Something went wrong while saving")
+
+
 @client.command(pass_context = True)
 async def deleteLegacyDJ(ctx, member):
     memberFound = False
@@ -229,6 +271,20 @@ async def deleteLegacyDJ(ctx, member):
             await client.say('|'+ member + '|' + " is no longer a LegacyDJ")
         else:
             await client.say("No such LegacyDJ found!")
+    try:
+      with open("DJs.txt", "r") as f:
+        content = f.readlines()
+        content = [x.strip() for x in content]
+        file = open("DJs.txt", "w")
+        for i in range(0, len(content)):
+            if(member != content[i]):
+                file.write(content[i])
+                        
+      f.close()
+      file.close()
+    except Exception as e:
+        print("Something went wrong while loading")
+        print(e)
     
 
 client.run('Mjk3NDQ1Mjc5NTI1ODk2MTkz.DDBYZg.arP3Qh43pDTyDb5Jpsxh5ISjQWs')
