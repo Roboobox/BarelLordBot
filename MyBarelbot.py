@@ -101,20 +101,20 @@ async def on_message(message):
                 await client.send_message(message.channel, 'Welcome LegacyDJ! You can use your power now.')
             else:
                 await client.send_message(message.channel, "DJ_DIMA thinks that you are not ready yet!")
-    if ("?play" in message.content.lower() and hasLegacyDJPlayedMusic == False):
-        
-        hasLegacyDJPlayedMusic = True;
-        role = discord.utils.get(message.server.roles, name="DJ")
-        roles = [
-                   "282221347730489344",
-                    ]
-        
-            #for i in range(0, 2):
-            #    if (message.author.name == LegacyDJs[i]):
-            #        LegacyDJs[i] = ""
-        await client.remove_roles(message.author, role)
-        dj_startTime()
-        await client.send_message(message.channel, "You have used your LegacyDJ power! :musical_note: \n" + checkTime() + " - Next available song" )
+    #if ("?play" in message.content.lower() and hasLegacyDJPlayedMusic == False):
+    #    
+    #    hasLegacyDJPlayedMusic = True;
+    #    role = discord.utils.get(message.server.roles, name="DJ")
+    #    roles = [
+    #               "282221347730489344",
+    #                ]
+    #    
+    #        #for i in range(0, 2):
+    #        #    if (message.author.name == LegacyDJs[i]):
+    #        #        LegacyDJs[i] = ""
+    #    await client.remove_roles(message.author, role)
+    #    dj_startTime()
+    #    await client.send_message(message.channel, "You have used your LegacyDJ power! :musical_note: \n" + checkTime() + " - Next available song" )
     await client.process_commands(message)
 
 @client.command(pass_context = True)
