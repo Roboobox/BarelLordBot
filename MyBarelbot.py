@@ -58,6 +58,8 @@ def loadDJs():
 
 @client.event
 async def on_message(message):
+   if "rozentals" in message.content.lower():
+        await client.send_message(message.channel, '*musu carrys')
     if "olafs" in message.content.lower():
         await client.send_message(message.channel, '*Aleksejs...')
     elif "olafu" in message.content.lower():
