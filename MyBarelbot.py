@@ -62,6 +62,8 @@ async def on_message(message):
         await client.send_message(message.channel, '*Aleksejs...')
     elif "olafu" in message.content.lower():
         await client.send_message(message.channel, '*Alekseju...')
+    elif "olaf" in message.content.lower():
+        await client.send_message(message.channel, '*Aleksej...')     
     elif "olafam" in message.content.lower():
         await client.send_message(message.channel, '*Aleksejam...')
     elif "olafa" in message.content.lower():
