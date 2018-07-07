@@ -61,19 +61,19 @@ async def on_message(message):
     if "rozentals" in message.content.lower():
         await client.send_message(message.channel, '"musu carrys"')
     if "olafs" in message.content.lower():
-        await client.send_message(message.channel, '*Aleksejs...')
+        await client.send_message(message.channel, '*Pūciņš...')
     elif "olafu" in message.content.lower():
-        await client.send_message(message.channel, '*Alekseju...')
+        await client.send_message(message.channel, '*Pūciņu...')
     elif "olaf" in message.content.lower():
-        await client.send_message(message.channel, '*Aleksej...')     
+        await client.send_message(message.channel, '*Pūciņ...')     
     elif "olafam" in message.content.lower():
-        await client.send_message(message.channel, '*Aleksejam...')
+        await client.send_message(message.channel, '*Pūciņam...')
     elif "olafa" in message.content.lower():
-        await client.send_message(message.channel, '*Alekseja...')
+        await client.send_message(message.channel, '*Pūciņa...')
     elif "olafā" in message.content.lower():
-        await client.send_message(message.channel, '*Aleksejā...')
+        await client.send_message(message.channel, '*Pūciņā...')
     elif "olafi" in message.content.lower():
-        await client.send_message(message.channel, '*Alekseji...')
+        await client.send_message(message.channel, '*Pūciņi...')
 
     global hasLegacyDJPlayedMusic
     #storage = await self.get_storage(member.server)
