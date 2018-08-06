@@ -291,4 +291,4 @@ async def deleteLegacyDJ(ctx, member):
         print(e)
     
 
-client.run('Mjk3NDQ1Mjc5NTI1ODk2MTkz.DDBYZg.arP3Qh43pDTyDb5Jpsxh5ISjQWs')
+client.run(configkey.token)
