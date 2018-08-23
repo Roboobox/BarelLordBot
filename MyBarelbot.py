@@ -2,6 +2,7 @@
 import discord;
 import logging
 import time
+import boto
 import os
 from datetime import datetime, timedelta
 import threading
