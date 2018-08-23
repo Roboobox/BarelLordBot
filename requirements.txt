@@ -1,5 +1,5 @@
 discord.py==0.14.3
-boto==2.5.1
+boto
 aiohttp
 websockets
 chardet
