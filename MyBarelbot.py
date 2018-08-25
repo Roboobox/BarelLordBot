@@ -6,6 +6,8 @@ import os
 from datetime import datetime, timedelta
 import threading
 from threading import Timer
+import urllib.request, json
+from random import randint
 
 from discord.ext import commands
 from discord import ChannelType
@@ -149,6 +151,12 @@ async def live(ctx, username : str):
 @client.command(pass_context = True)
 async def ggc(ctx, champion : str, line : str):
     await client.send_message(ctx.message.channel, "https://eune.op.gg/champion/" + champion + "/statistics/" + line)
+	
+@client.command(pass_context = True)
+async def thiccthighs(ctx):
+	embed = discord.Embed
+	embed.set_image(scrapeReddit("thicc"))
+	await client.send_message(message.channel, embed=embed)
 
 @client.command(pass_context = True)
 async def addLegacyDJ(ctx, * , member):
@@ -243,6 +251,21 @@ def save(info : str):
       file.close()
     except Exception:
         print("Something went wrong while saving")
+		
+def scrapeReddit(subreddit : str):
+	try:
+		if(subreddit == "thicc"):
+			url = 'https://www.reddit.com/r/ThickThighs/top.json?sort=top&t=week'
+			req = urllib.request.Request(url, data = None, headers={'User-Agent': 'BarelLord Bot V1'})
+
+			r = urllib.request.urlopen(req).read()
+			cont = json.loads(r.decode('utf-8'))
+			linkList = []
+			for item in cont['data']['children']:
+				linkList.append(item['data']['url'])
+			return linkList[randint(0, len(linkList)-1)]
+	except Exception:
+		print("Something went wrong while scrapping")
 
 
 @client.command(pass_context = True)
