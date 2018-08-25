@@ -291,5 +291,4 @@ async def deleteLegacyDJ(ctx, member):
         print(e)
     
 s3 = os.environ['KEY']
-print(s3)
 client.run(s3)
