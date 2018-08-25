@@ -156,6 +156,7 @@ async def ggc(ctx, champion : str, line : str):
 async def thiccthighs(ctx):
 	embed = discord.Embed
 	embed.set_image(scrapeReddit("thicc"))
+	print scrapeReddit("thicc")
 	await client.send_message(message.channel, embed=embed)
 
 @client.command(pass_context = True)
@@ -263,6 +264,7 @@ def scrapeReddit(subreddit : str):
 			linkList = []
 			for item in cont['data']['children']:
 				linkList.append(item['data']['url'])
+			print linkList[randint(0, len(linkList)-1)]
 			return linkList[randint(0, len(linkList)-1)]
 	except Exception:
 		print("Something went wrong while scrapping")
