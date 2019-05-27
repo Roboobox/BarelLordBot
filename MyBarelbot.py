@@ -218,5 +218,4 @@ def aram():
     except Exception as e:
         print(e)
     
-##s3 = os.environ['KEY']
-client.run('Mjk3NDQ1Mjc5NTI1ODk2MTkz.XOpQGA.dr48Y_DF2p6TZwU90L-rz8FRZbE')
+s3 = os.environ['KEY']
