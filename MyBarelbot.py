@@ -1,5 +1,8 @@
 import discord;
 import logging
+import imgkit
+from bs4 import BeautifulSoup
+
 import time
 import os
 from datetime import datetime, timedelta
@@ -23,9 +26,10 @@ client = commands.Bot(description='BarelLord bot', command_prefix='!')
 
 @client.event
 async def on_ready():
-    scrapeAnimeSubreddit()
-    scrapeThiccSubreddit()
-    scrapeThighsSubreddit()
+    aram()
+    ##scrapeAnimeSubreddit()
+    ##scrapeThiccSubreddit()
+    ##scrapeThighsSubreddit()
 
 
 @client.event
@@ -69,7 +73,7 @@ async def helpMe(ctx):
 @client.command(pass_context=True)
 async def gg(ctx, username: str):
     print(ctx.message.channel == "text")
-    await client.send_message(ctx.message.channel, "https://eune.op.gg/summoner/userName=" + username)
+    await client.send_message(ctx.message.channel, "https://eune.op.gg/summoner/userName=" + username + " test")
 
 
 @client.command(pass_context=True)
@@ -86,6 +90,18 @@ async def live(ctx, username: str):
 async def ggc(ctx, champion: str, lane: str):
     await client.send_message(ctx.message.channel, "https://eune.op.gg/champion/" + champion + "/statistics/" + lane)
 
+@client.command(pass_context=True)
+async def aram(ctx):
+    html=aram()
+    img = imgkit.from_string(html, False)
+    await client.send_message(ctx.message.channel, 'test')
+
+@client.command(pass_context=True)
+async def aram2(ctx):
+    embeda = discord.Embed(title="Title", description="Desc")
+    ##embeda.set_image(url="https://discordapp.com/assets/e4923594e694a21542a489471ecffa50.svg")
+    embeda.add_field(name='dssd', value='dsdsd', inline=False)
+    await client.send_message(ctx.message.channel, embed=embeda)
 
 @client.command(pass_context=True)
 async def thiccthighs(ctx):
@@ -185,6 +201,23 @@ def scrapeThighsSubreddit():
         print("Done scrapping subreddit Thighs")
     except Exception:
         print("Something went wrong while scrapping")
+
+def aram():
+    try:
+        url = 'https://www.metasrc.com/na/aram/champion/poppy'
+        req = urllib.request.Request(url, data=None, headers={'User-Agent': 'BarelLord Bot V1'})
+
+        r = urllib.request.urlopen(req).read()
+        soup = BeautifulSoup(r)
+        images = soup.findAll("img", class_="_iui6p1")
+        images2 = soup.find_all("image")
+        links = ''
+        for image in images:
+            links = links + image['src'] + ' '
+        html = "<body bgcolor='#202020'> <div style='float: left;'> <h1 style='color: white'> Spells: </h1>"+ str(images[0])+ str(images[1])+ "<h1 style='color: white'> First items: </h1>"+ str(images[2])+ str(images[3])+str(images[4])+ "<h1 style='color: white'> Build: </h1>"+ str(images[5])+ str(images[6])+ str(images[7])+ str(images[8])+ str(images[9])+ str(images[10])+ "</div>"+ "<div style='float: left; margin-left: 60px;'>"+ "<h1 style='color: white'> Runes: </h1>"+ "<img width='80px' src='" + str(images2[1]['xlink:href']) + "'/>"+ "<img width='40px' src='" + str(images2[2]['xlink:href']) + "'/>"+ "<img width='40px' src='" + str(images2[3]['xlink:href']) + "'/>"+ "<img width='40px' src='" + str(images2[4]['xlink:href']) + "'/><br>"+ "<img width='40px' src='" + str(images2[6]['xlink:href']) + "'/>"+  "<img width='40px' src='" + str(images2[7]['xlink:href']) + "'/>"+ "<img style='border: 3px solid white; border-radius: 50%; background-color:black;' width='30px' src='" + str(images2[8]['xlink:href']) + "'/>"+  "<img style='border: 3px solid white; border-radius: 50%; background-color:black;' width='30px' src='" + str(images2[9]['xlink:href']) + "'/>"+ "<img style='border: 3px solid white; border-radius: 50%; background-color:black;' width='30px' src='" + str(images2[10]['xlink:href']) + "'/>"+ "</div>"+ "</body>"
+        return(html)
+    except Exception as e:
+        print(e)
     
-s3 = os.environ['KEY']
-client.run(s3)
+##s3 = os.environ['KEY']
+client.run('Mjk3NDQ1Mjc5NTI1ODk2MTkz.XOpQGA.dr48Y_DF2p6TZwU90L-rz8FRZbE')

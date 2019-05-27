@@ -1,4 +1,6 @@
-discord.py==0.14.3
+discord.py==1.1.1
 aiohttp
 websockets
 chardet
+beautifulsoup4
+imgkit
