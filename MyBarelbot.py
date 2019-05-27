@@ -27,9 +27,9 @@ client = commands.Bot(description='BarelLord bot', command_prefix='!')
 @client.event
 async def on_ready():
     aram()
-    ##scrapeAnimeSubreddit()
-    ##scrapeThiccSubreddit()
-    ##scrapeThighsSubreddit()
+    scrapeAnimeSubreddit()
+    scrapeThiccSubreddit()
+    scrapeThighsSubreddit()
 
 
 @client.event
@@ -94,14 +94,13 @@ async def ggc(ctx, champion: str, lane: str):
 async def aram(ctx):
     html=aram()
     img = imgkit.from_string(html, False)
-    await client.send_message(ctx.message.channel, 'test')
+    await client.send_file(ctx.message.channel, img)
 
 @client.command(pass_context=True)
 async def aram2(ctx):
-    embeda = discord.Embed(title="Title", description="Desc")
-    ##embeda.set_image(url="https://discordapp.com/assets/e4923594e694a21542a489471ecffa50.svg")
-    embeda.add_field(name='dssd', value='dsdsd', inline=False)
-    await client.send_message(ctx.message.channel, embed=embeda)
+    html=aram()
+    img = imgkit.from_string(html, False)
+    await client.send_message(ctx.message.channel, img)
 
 @client.command(pass_context=True)
 async def thiccthighs(ctx):
